@@ -15,7 +15,6 @@ def threader():
 
         port_scan(f"{worker}")
 
-
         q.task_done()
 
 
@@ -26,7 +25,6 @@ for x in range(25):
     t = threading.Thread(target=threader)
 
     t.daemon = True
-
 
     t.start()
 
