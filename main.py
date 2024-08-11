@@ -4,7 +4,9 @@ import threading
 from queue import Queue
 import sys
 import time
-
+import curses
+from curses import wrapper
+'''
 print_lock = threading.Lock()
 
 
@@ -42,3 +44,31 @@ for worker in net:
 
 
 q.join()
+'''
+
+
+def main(main_screen):
+    curses.cbreak()
+    curses.noecho()
+
+    main_screen.addstr("This is a string for the screen")
+    main_screen.refresh()
+
+    curses.curs_set(1)
+    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_WHITE)
+    while True:
+
+        c = main_screen.getch()
+        if chr(c) == "q":
+            break
+
+        main_screen.addch(chr(c), curses.color_pair(
+            1) | curses.A_BOLD | curses.A_UNDERLINE | curses.A_BLINK)
+
+        main_screen.refresh()
+
+
+wrapper(main)
+
+
+print("Window ended")
